@@ -1,5 +1,5 @@
 function Setting() {
-  return <div></div>;
+  return <div>Setting page</div>;
 }
 
 export default Setting;

@@ -1,0 +1,16 @@
+/* 나눔 스퀘어 굵음 */
+@font-face {
+    font-family: "NanumSquareEB";
+    src: url("/src/assets/font/NanumSquareEB.ttf");
+}
+
+/* 나눔 고딕 */
+@font-face {
+    font-family: "NanumGothic";
+    src: url("/src/assets/font/NanumGothic.otf");
+}
+
+body {
+    background-color: #9FB1BC;
+    font-family: NanumGothic;
+}
