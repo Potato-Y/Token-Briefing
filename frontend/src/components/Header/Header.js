@@ -1,13 +1,7 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
-  const navigate = useNavigate();
-
-  const goSetting = () => {
-    navigate('/settings');
-  };
-
   return (
     <div>
       <div id="head-box">

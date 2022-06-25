@@ -8,17 +8,20 @@ import Setting from './page/Setting/Setting';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Header />}>
-        <Route index element={<Home />} />
-        <Route path="/settings" element={<Setting />} />
-        {/* 여기는 상세 게시글 */}
-        <Route path="/post" element={<Post />}>
-          <Route path=":id" element={<Post />} />
-        </Route>
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <div className="wrap">
+      <Header />
+      <div className="item-wrap">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/settings" element={<Setting />} />
+          {/* 여기는 상세 게시글 */}
+          <Route path="/post" element={<Post />}>
+            <Route path=":id" element={<Post />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </div>
   );
 }
 
