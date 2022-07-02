@@ -9,11 +9,7 @@
     align-items: center;
 }
 
-/* 파란 밑줄 없애기 */
-.navlink-to-reset {
-    color: #000000;
-    text-decoration: none;
-}
+
 
 #navlink-home {
     font-family: NanumSquareEB;

@@ -1,0 +1,66 @@
+import { NavLink } from 'react-router-dom';
+import './MemoItem.css';
+
+const MemoItem = (props) => {
+  if (props.mode === 'write') {
+    //만약에 쓰기 모드라면 아래 디자인을 사용한다.
+    return (
+      <div>
+        <div className="memo-post-wrap">
+          <div className="memo-content-wrap">
+            <form
+              onSubmit={(event) => {
+                // 저장 버튼 클릭 시 작동
+                event.preventDefault();
+                const memocontent = event.target.memocontent.value;
+                const memowriter = event.target.memowriter.value;
+                console.log(memocontent, memowriter);
+
+                if (memowriter === '') {
+                  // 작성자가 선택되지 않은 경우 경고 및 취소
+                  return alert('작성자를 선택하세요.');
+                }
+
+                props.saveOnClick();
+              }}
+            >
+              <div className="memo-title">
+                새로운 메모 작성하기
+                {/* 작성자 추가 */}
+                <select name="memowriter" style={{ float: 'right' }}>
+                  <option value="">작성자</option>
+                  <option value="테스트">테스트</option>
+                </select>
+              </div>
+
+              <textarea name="memocontent" className="new-memo-textarea" placeholder="여기에 내용을 입력하세요"></textarea>
+              <p>
+                <input className="memo-save-button" type="submit" value="저장"></input>
+              </p>
+            </form>
+          </div>
+        </div>
+        <div style={{ margin: '20px' }}></div> {/* 하단 마진 */}
+      </div>
+    );
+  } else {
+    //만약에 읽기 모드라면 아래 디자인을 사용한다.
+    return (
+      <div>
+        <div className="memo-post-wrap">
+          <div className="memo-content-wrap">
+            <div className="memo-title">작성자: {props.writer}</div>
+
+            <div className="memo-contents">{props.contents}</div>
+            <NavLink to={`/post/${props.id}`} className="navlink-to-reset" style={{ float: 'right', marginTop: '10px', fontSize: '12px' }}>
+              [자세히]
+            </NavLink>
+          </div>
+        </div>
+        <div style={{ margin: '20px' }}></div> {/* 하단 마진 */}
+      </div>
+    );
+  }
+};
+
+export default MemoItem;

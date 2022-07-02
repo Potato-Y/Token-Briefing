@@ -1,0 +1,79 @@
+/* 메모 전체 묶음 */
+.memo-post-wrap {
+  background-color: #f4ecd6;
+  /* 크기 */
+  width: 100%;
+  height: 130px;
+
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+/* 메모 속 컨텐츠 묶음 */
+.memo-content-wrap {
+  margin: 15px;
+  height: 90%;
+
+  overflow: hidden;
+}
+
+form {
+  height: 100%;
+}
+
+.memo-title {
+  font-family: 'NanumSquareEB';
+  font-size: 13px;
+}
+
+/* 메모 내용 입력 */
+.new-memo-textarea {
+  width: 98%;
+  height: 50%;
+  margin-top: 5px;
+  resize: none;
+  background-color: #ffffff00;
+  border: none;
+  overflow: overlay;
+}
+
+/* 테두리가 생기지 않도록 */
+.new-memo-textarea:focus {
+  outline: none;
+}
+
+.new-memo-textarea::-webkit-scrollbar {
+  width: 0.4vw;
+}
+
+.new-memo-textarea::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 42%, 0.49);
+  border-radius: 100px;
+}
+
+.memo-save-button {
+  float: right;
+
+  background-color: #cfc9b6;
+  border: none;
+  border-radius: 5px;
+}
+
+.memo-contents {
+  width: 98%;
+  height: 60%;
+
+  font-size: 14px;
+  line-height: 130%;
+  margin-top: 5px;
+  overflow: overlay;
+}
+
+.memo-contents::-webkit-scrollbar {
+  width: 0.4vw;
+}
+
+.memo-contents::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 42%, 0.49);
+  border-radius: 100px;
+}
