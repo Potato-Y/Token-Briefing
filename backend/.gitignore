@@ -1,5 +1,7 @@
 # 직접 추가 public 폴더는 frontend에서 직접 빌드
 public/
+Data/
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,node
