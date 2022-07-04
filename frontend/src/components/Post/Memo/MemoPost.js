@@ -3,6 +3,7 @@ import MemoItem from './MemoItem';
 import './MemoPost.css';
 
 const MemoPost = () => {
+  console.log('Load Memo Post');
   // 메모 포스트 리스트
   const [memoList, setMemoList] = useState(null);
 

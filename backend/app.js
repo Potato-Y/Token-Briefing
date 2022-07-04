@@ -19,6 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 라우터 처리
+const apiRouter = require('./routes/api/apiRouter');
+
+app.use('/api', apiRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('*', indexRouter);
