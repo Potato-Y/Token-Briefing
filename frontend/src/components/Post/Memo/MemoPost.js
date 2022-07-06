@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import MemoItem from './MemoItem';
 import './MemoPost.css';
@@ -6,6 +7,27 @@ const MemoPost = () => {
   console.log('Load Memo Post');
   // 메모 포스트 리스트
   const [memoList, setMemoList] = useState(null);
+
+  if (memoList === null) {
+    // memoList가 null일 경우 메모의 정보를 가져오지 않은 것으로 인지, 데이터를 가져오기
+    axios.get('/api/v1/memo/last10').then((response) => {
+      if (response.data === '') {
+        console.log('받은 최신 메모가 없습니다.');
+      } else {
+        setMemoList(
+          response.data.map((row) => (
+            <MemoItem
+              key={row.key}
+              mode="read"
+              writer={row.writer}
+              date={row.date}
+              content={row.content}
+            />
+          ))
+        );
+      }
+    });
+  }
 
   return (
     <div className="memo-wrap">
@@ -18,7 +40,7 @@ const MemoPost = () => {
           setMemoList(null);
         }}
       />
-      <MemoItem mode="read" writer={'작성자'} contents={'테스트 문구'} />
+      {memoList}
     </div>
   );
 };

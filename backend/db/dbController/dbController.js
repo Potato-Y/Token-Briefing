@@ -137,6 +137,17 @@ class DBController {
       }
     );
   }
+
+  // 최근 10건 조회
+  getMemoPostLast10(res) {
+    this.db.all(`SELECT * FROM 'memo_post' ORDER BY ROWID DESC LIMIT 10`, [], (err, rows) => {
+      if (err) {
+        console.error(`DB ERR: 'memo_post' 불러오기 오류\n${err}`);
+      } else {
+        return res.send(rows);
+      }
+    });
+  }
 }
 
 const makeFoler = (dir) => {

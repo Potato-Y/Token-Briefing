@@ -15,7 +15,6 @@ const MemoItem = (props) => {
                 event.preventDefault();
                 const memocontent = event.target.memocontent.value;
                 const memowriter = event.target.memowriter.value;
-                console.log(memocontent, memowriter);
 
                 if (memowriter === '') {
                   // 작성자가 선택되지 않은 경우 경고 및 취소
@@ -32,13 +31,18 @@ const MemoItem = (props) => {
                 };
 
                 addData('writer', memowriter);
-                addData('content', memocontent);
+                addData('content', `'${memocontent}'`);
 
                 axios.post('/api/v1/memo/upload', data).then((response) => {
                   const process = response.data.process;
                   console.log(process);
                   if (process === true) {
                     alert('저장되었습니다.');
+                    // 폼 초기화
+                    event.target.memocontent.value = '';
+                    event.target.memowriter.value = '';
+
+                    // 메모 리스트 초기화
                     props.saveOnClick();
                   } else {
                     return alert('저장에 실패하였습니다.');
@@ -81,7 +85,7 @@ const MemoItem = (props) => {
           <div className="memo-content-wrap">
             <div className="memo-title">작성자: {props.writer}</div>
 
-            <div className="memo-contents">{props.contents}</div>
+            <div className="memo-contents">{props.content}</div>
             <NavLink
               to={`/post/${props.id}`}
               className="navlink-to-reset"

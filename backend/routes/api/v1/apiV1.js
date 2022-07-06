@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
   res.send('error');
 });
 
+// 새로운 메모 업로드
 router.post('/memo/upload', (req, res) => {
   // 컴퓨터의 표준 시간 상관 없이 항상 한국 시간이 나타나도록 하기
   const localDate = new Date(); // locale 시간
@@ -40,6 +41,11 @@ router.post('/memo/upload', (req, res) => {
   } catch (err) {
     console.log('err:' + err);
   }
+});
+
+// 최근 10건 조회
+router.get('/memo/last10', (req, res) => {
+  dbController.getMemoPostLast10(res);
 });
 
 module.exports = router;

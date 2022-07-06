@@ -67,6 +67,9 @@ form {
   line-height: 130%;
   margin-top: 5px;
   overflow: overlay;
+
+  /* 줄바꿈 추가 */
+  white-space: pre-wrap;
 }
 
 .memo-contents::-webkit-scrollbar {
