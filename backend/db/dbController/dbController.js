@@ -116,6 +116,7 @@ class DBController {
   }
 
   addMemo(memo, res) {
+    console.log(`content: ${memo.content}`);
     this.db.run(
       `INSERT INTO 'memo_post'(
         writer,

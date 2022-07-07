@@ -42,6 +42,7 @@ form {
   outline: none;
 }
 
+/* 스크롤바 디자인 변경 */
 .new-memo-textarea::-webkit-scrollbar {
   width: 0.4vw;
 }
@@ -72,8 +73,10 @@ form {
   white-space: pre-wrap;
 }
 
+/* 스크롤바 디자인 변경 */
 .memo-contents::-webkit-scrollbar {
   width: 0.4vw;
+  height: 0.4vw;
 }
 
 .memo-contents::-webkit-scrollbar-thumb {

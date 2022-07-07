@@ -31,7 +31,7 @@ const MemoItem = (props) => {
                 };
 
                 addData('writer', memowriter);
-                addData('content', `'${memocontent}'`);
+                addData('content', `${memocontent}`);
 
                 axios.post('/api/v1/memo/upload', data).then((response) => {
                   const process = response.data.process;
@@ -59,17 +59,9 @@ const MemoItem = (props) => {
                 </select>
               </div>
 
-              <textarea
-                name="memocontent"
-                className="new-memo-textarea"
-                placeholder="여기에 내용을 입력하세요"
-              ></textarea>
+              <textarea name="memocontent" className="new-memo-textarea" placeholder="여기에 내용을 입력하세요"></textarea>
               <p>
-                <input
-                  className="memo-save-button"
-                  type="submit"
-                  value="저장"
-                ></input>
+                <input className="memo-save-button" type="submit" value="저장"></input>
               </p>
             </form>
           </div>
@@ -85,12 +77,12 @@ const MemoItem = (props) => {
           <div className="memo-content-wrap">
             <div className="memo-title">작성자: {props.writer}</div>
 
-            <div className="memo-contents">{props.content}</div>
-            <NavLink
-              to={`/post/${props.id}`}
-              className="navlink-to-reset"
-              style={{ float: 'right', marginTop: '10px', fontSize: '12px' }}
-            >
+            <div className="memo-contents">
+              <span style={{ fontSize: '12px' }}>{props.date}</span>
+              <br />
+              {props.content}
+            </div>
+            <NavLink to={`/post/${props.id}`} className="navlink-to-reset" style={{ float: 'right', marginTop: '10px', fontSize: '12px' }}>
               [자세히]
             </NavLink>
           </div>
