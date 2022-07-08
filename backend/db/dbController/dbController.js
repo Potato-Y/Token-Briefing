@@ -56,7 +56,7 @@ class DBController {
                 token3000 INTEGER,
                 token4000 INTEGER,
                 token5000 INTEGER,
-                content TEXT NOT NULL,
+                memo TEXT NOT NULL,
                 date TEXT NOT NULL
                )`,
               (err) => {
@@ -148,6 +148,40 @@ class DBController {
         return res.send(rows);
       }
     });
+  }
+
+  addTokenBriefingPost(tokenbriefing, res) {
+    this.db.serialize();
+    this.db.run(
+      `INSERT INTO 'token_briefing_post'(
+        writer,
+        token1000,
+        token2000,
+        token3000,
+        token4000,
+        token5000,
+        memo,
+        date
+        )VALUES(
+          '${tokenbriefing.writer}',
+          ${tokenbriefing.token1000},
+          ${tokenbriefing.token2000},
+          ${tokenbriefing.token3000},
+          ${tokenbriefing.token4000},
+          ${tokenbriefing.token5000},
+          '${tokenbriefing.tokenmemo}',
+          '${tokenbriefing.date}'
+        )
+      `,
+      (err) => {
+        if (err) {
+          console.error(`DB ERR: 'token_briefing' 데이터 추가 실패. \n${err}`);
+          return res.send({ process: false, message: null });
+        } else {
+          return res.send({ process: true });
+        }
+      }
+    );
   }
 }
 

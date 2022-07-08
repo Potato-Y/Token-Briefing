@@ -1,6 +1,7 @@
 const express = require('express');
 const DBController = require('../../../db/dbController/dbController');
 const Memo = require('../../../db/dbModel/memo');
+const TokenBriefing = require('../../../db/dbModel/tokenbriefing');
 const router = express.Router();
 
 const dbController = new DBController();
@@ -46,6 +47,17 @@ router.post('/memo/upload', (req, res) => {
 // 최근 10건 조회
 router.get('/memo/last10', (req, res) => {
   dbController.getMemoPostLast10(res);
+});
+
+router.post('/tokenbriefing/upload', (req, res) => {
+  try {
+    const tokenbriefing = new TokenBriefing();
+    tokenbriefing.setTokenBriefingForApiRes(req);
+
+    dbController.addTokenBriefingPost(tokenbriefing.data, res);
+  } catch (err) {
+    console.log('err:' + err);
+  }
 });
 
 module.exports = router;

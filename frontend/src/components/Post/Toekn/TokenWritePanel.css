@@ -1,0 +1,59 @@
+/* Token 작성 패널 전체 묶음 */
+.token-write-panel-wrap {
+  background-color: #d6e3f4;
+  /* 크기 */
+  width: 100%;
+
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+/* Token 작성 패널 속 컨텐츠 묶음 */
+.token-write-panel-content-wrap {
+  margin: 15px;
+  height: 90%;
+
+  overflow: hidden;
+}
+
+.input-box {
+  border-radius: 4px;
+  border: 1px solid rgba(111, 167, 202, 0.578);
+  margin-top: 2px;
+}
+
+/* 테두리가 생기지 않도록 */
+.input-box:focus {
+  outline: none;
+}
+
+#input-memo {
+  width: 60%;
+  height: 55px;
+  resize: none;
+  overflow: overlay;
+  float: right;
+}
+
+#input-memo::-webkit-scrollbar {
+  width: 0.4vw;
+  height: 0.4vw;
+}
+
+#input-memo::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 42%, 0.49);
+  border-radius: 100px;
+}
+
+.button-upload {
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  float: right;
+
+  background-color: #9bc6ff;
+  border: none;
+  border-radius: 5px;
+}

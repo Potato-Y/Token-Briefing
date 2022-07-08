@@ -35,7 +35,7 @@ const MemoItem = (props) => {
 
                 axios.post('/api/v1/memo/upload', data).then((response) => {
                   const process = response.data.process;
-                  console.log(process);
+                  console.log(`memo upload process: ${process}`);
                   if (process === true) {
                     alert('저장되었습니다.');
                     // 폼 초기화
