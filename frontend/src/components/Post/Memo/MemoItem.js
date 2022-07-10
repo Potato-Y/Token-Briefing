@@ -66,7 +66,6 @@ const MemoItem = (props) => {
             </form>
           </div>
         </div>
-        {/* <div style={{ margin: '20px' }}></div> 하단 마진 */}
       </div>
     );
   } else {
@@ -87,7 +86,6 @@ const MemoItem = (props) => {
             </NavLink>
           </div>
         </div>
-        {/* <div style={{ margin: '20px' }}></div> 하단 마진 */}
       </div>
     );
   }

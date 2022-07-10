@@ -69,8 +69,7 @@ class DBController {
             // 작성자 목록
             this.db.run(
               `CREATE TABLE 'writer'(
-                key INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL
+                name TEXT PRIMARY KEY NOT NULL
               )`,
               (err) => {
                 if (err) {
@@ -197,6 +196,7 @@ class DBController {
     );
   }
 
+  // 최신 토큰 브리핑 포스트 데이터 얻기
   getLastLatestTokenBriefingPost(res) {
     this.db.get(`SELECT * FROM 'token_briefing_post' ORDER BY ROWID DESC LIMIT 1`, (err, data) => {
       if (err) {
@@ -204,6 +204,52 @@ class DBController {
       } else {
         return res.send(data);
       }
+    });
+  }
+
+  // 작성자 추가
+  addWriter(data, res) {
+    this.db.serialize();
+    this.db.run(
+      `INSERT INTO 'writer'(
+        name
+       )VALUES(
+        '${data.name}'
+      )`,
+      (err, data) => {
+        if (err) {
+          console.error(`DB ERR: 'writer' 데이터 추가 실패\n${err}`);
+
+          return res.send({ process: false, message: '이미 추가된 작성자인지 확인하세요.' });
+        } else {
+          return res.send({ process: true });
+        }
+      }
+    );
+  }
+
+  // 모든 작성자
+  getAllWriter(res) {
+    this.db.all(`SELECT * FROM 'writer'`, [], (err, rows) => {
+      if (err) {
+        console.error(`DB ERR: 'writer' 불러오기 오류\n${err}`);
+      } else {
+        return res.send(rows);
+      }
+    });
+  }
+
+  // 작성자 삭제
+  deleteWriter(data, res) {
+    this.db.serialize(() => {
+      this.db.all(`DELETE FROM 'writer' WHERE name='${data.name}'`, (err, rows) => {
+        if (err) {
+          console.log(`DB ERR: 'writer' 작성자 삭제 오류\n${err}`);
+          return res.send({ process: false, message: '사용자 삭제 실패' });
+        } else {
+          return res.send({ process: true });
+        }
+      });
     });
   }
 }

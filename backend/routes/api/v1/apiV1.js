@@ -54,4 +54,29 @@ router.get('/tokenbriefing/last_latest_post', (req, res) => {
   dbController.getLastLatestTokenBriefingPost(res);
 });
 
+// 새로운 작성자 이름 등록
+router.post('/writer/add', (req, res) => {
+  try {
+    dbController.addWriter(req.body, res);
+  } catch (err) {
+    console.error('err: ' + err);
+    res.send({ process: false, message: null });
+  }
+});
+
+// 모든 작성자 리스트
+router.get('/writer/all_writer', (req, res) => {
+  dbController.getAllWriter(res);
+});
+
+// 작성자 제거
+router.post('/writer/delete', (req, res) => {
+  try {
+    dbController.deleteWriter(req.body, res);
+  } catch (err) {
+    console.error('err: ' + err);
+    res.send({ process: false, message: null });
+  }
+});
+
 module.exports = router;
