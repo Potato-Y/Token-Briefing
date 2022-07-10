@@ -36,6 +36,7 @@ router.get('/memo/last10', (req, res) => {
   dbController.getMemoPostLast10(res);
 });
 
+// 새로운 토큰 브리핑 포스트 업로드
 router.post('/tokenbriefing/upload', (req, res) => {
   try {
     const tokenbriefing = new TokenBriefing();
@@ -46,6 +47,11 @@ router.post('/tokenbriefing/upload', (req, res) => {
     console.log('err:' + err);
     res.send({ process: false, message: null });
   }
+});
+
+// 최신 토큰 브리핑 포스트
+router.get('/tokenbriefing/last_latest_post', (req, res) => {
+  dbController.getLastLatestTokenBriefingPost(res);
 });
 
 module.exports = router;

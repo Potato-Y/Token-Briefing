@@ -6,3 +6,22 @@
   font-family: 'NanumSquareEB';
   margin-bottom: 20px;
 }
+
+/* Token 작성 패널 전체 묶음 */
+.token-panel-wrap {
+  background-color: #d6e3f4;
+  /* 크기 */
+  width: 100%;
+
+  overflow: hidden;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Token 작성 패널 속 컨텐츠 묶음 */
+.token-panel-content-wrap {
+  margin: 15px;
+  height: 90%;
+
+  overflow: hidden;
+}

@@ -66,6 +66,19 @@ class DBController {
               }
             );
 
+            // 작성자 목록
+            this.db.run(
+              `CREATE TABLE 'writer'(
+                key INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL
+              )`,
+              (err) => {
+                if (err) {
+                  return console.error(`DB ERR: 'writer' 테이블 생성 실패.\n${err}`);
+                }
+              }
+            );
+
             // 필요 쿼리 진행 후, DB 버전 정보 입력
             this.db.run(
               `CREATE TABLE 'client_settings'(
@@ -182,6 +195,16 @@ class DBController {
         }
       }
     );
+  }
+
+  getLastLatestTokenBriefingPost(res) {
+    this.db.get(`SELECT * FROM 'token_briefing_post' ORDER BY ROWID DESC LIMIT 1`, (err, data) => {
+      if (err) {
+        console.error(`DB ERR: 'token_briefing_post' 불러오기 오류\n${err}`);
+      } else {
+        return res.send(data);
+      }
+    });
   }
 }
 

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import './TokenWritePanel.css';
 
-const TokenWritePanel = () => {
+const TokenWritePanel = (props) => {
   return (
     <div>
-      <div className="token-write-panel-wrap">
-        <div className="token-write-panel-content-wrap">
+      <div className="token-panel-wrap">
+        <div className="token-panel-content-wrap">
           새로운 마감 번호 입력하기
           <form
             onSubmit={(event) => {
@@ -92,6 +92,9 @@ const TokenWritePanel = () => {
                   event.target.token4000.value = '';
                   event.target.token5000.value = '';
                   event.target.tokenmemo.value = '';
+
+                  // 토큰 데이터 다시 불러오기
+                  props.saveOnClick();
                 } else {
                   return alert('저장에 실패하였습니다.');
                 }
