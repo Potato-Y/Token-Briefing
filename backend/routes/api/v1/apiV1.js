@@ -1,7 +1,7 @@
 const express = require('express');
 const DBController = require('../../../db/dbController/dbController');
 const Memo = require('../../../db/dbModel/memo');
-const TokenBriefing = require('../../../db/dbModel/tokenbriefing');
+const TokenBriefing = require('../../../db/dbModel/tokenBriefing');
 const router = express.Router();
 
 const dbController = new DBController();
