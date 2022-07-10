@@ -103,7 +103,7 @@ const TokenWritePanel = (props) => {
           >
             <select name="tokenwriter" style={{ marginTop: '10px' }}>
               <option value="">작성자</option>
-              <option value="테스트">테스트</option>
+              {props.writerList}
             </select>
             <br />
             <br />

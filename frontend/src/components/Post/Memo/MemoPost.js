@@ -3,7 +3,7 @@ import { useState } from 'react';
 import MemoItem from './MemoItem';
 import './MemoPost.css';
 
-const MemoPost = () => {
+const MemoPost = (props) => {
   console.log('Load Memo Post');
   // 메모 포스트 리스트
   const [memoList, setMemoList] = useState(null);
@@ -14,17 +14,7 @@ const MemoPost = () => {
       if (response.data === '') {
         console.log('받은 최신 메모가 없습니다.');
       } else {
-        setMemoList(
-          response.data.map((row) => (
-            <MemoItem
-              key={row.key}
-              mode="read"
-              writer={row.writer}
-              date={row.date}
-              content={row.content}
-            />
-          ))
-        );
+        setMemoList(response.data.map((row) => <MemoItem key={row.key} mode="read" writer={row.writer} date={row.date} content={row.content} />));
       }
     });
   }
@@ -35,6 +25,7 @@ const MemoPost = () => {
       {/* 새로운 포스트 */}
       <MemoItem
         mode="write"
+        writerList={props.writerList}
         saveOnClick={() => {
           // 리스트가 다시 불러와질 수 있도록 처리
           setMemoList(null);

@@ -55,7 +55,9 @@ const MemoItem = (props) => {
                 {/* 작성자 추가 */}
                 <select name="memowriter" style={{ float: 'right' }}>
                   <option value="">작성자</option>
-                  <option value="테스트">테스트</option>
+
+                  {/* 받아온 작성자 리스트 표시 */}
+                  {props.writerList}
                 </select>
               </div>
 

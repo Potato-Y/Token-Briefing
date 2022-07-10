@@ -4,7 +4,7 @@ import TokenBriefing from './TokenBriefing';
 import './TokenPost.css';
 import TokenWritePanel from './TokenWritePanel';
 
-const TokenPost = () => {
+const TokenPost = (props) => {
   console.log('Load Token Post');
   // 토큰 포스트 최신 데이터
   const [tokenBriefing, setTokenBriefing] = useState(null);
@@ -51,6 +51,7 @@ const TokenPost = () => {
           // 저장 후 토큰 데이터 다시 불러오기
           setTokenBriefing(null);
         }}
+        writerList={props.writerList}
       />
     </div>
   );
