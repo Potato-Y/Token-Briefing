@@ -8,7 +8,22 @@ const TokenPost = (props) => {
   console.log('Load Token Post');
   // 토큰 포스트 최신 데이터
   const [tokenBriefing, setTokenBriefing] = useState(null);
-  let getTokenPostData;
+  // 새로 올라오는 토큰 브리핑 포스트를 읽어올 수 있도록 한다.
+  // let getTokenPostData;
+  // const reloadMomoPost = () =>
+  //   setTimeout(() => {
+  //     axios.get('/api/v1/tokenbriefing/last_latest_post').then((response) => {
+  //       if (response.data === getTokenPostData) {
+  //         return;
+  //       } else {
+  //         getTokenPostData = response.data;
+  //         setTokenBriefingWidget(response);
+  //       }
+  //     });
+  //     reloadMomoPost();
+  //   }, 60000);
+
+  // reloadMomoPost();
 
   const setTokenBriefingWidget = (response) => {
     if (response.data.date === undefined) {
@@ -42,26 +57,10 @@ const TokenPost = (props) => {
   if (tokenBriefing === null) {
     // tokenData에 데이터가 없을 경우
     axios.get('/api/v1/tokenbriefing/last_latest_post').then((response) => {
-      getTokenPostData = response.data;
+      // getTokenPostData = response.data; // 필요시 활성화
       setTokenBriefingWidget(response);
     });
   }
-
-  // 새로 올라오는 토큰 브리핑 포스트를 읽어올 수 있도록 한다.
-  const reloadMomoPost = () =>
-    setTimeout(() => {
-      axios.get('/api/v1/tokenbriefing/last_latest_post').then((response) => {
-        if (response.data === getTokenPostData) {
-          return;
-        } else {
-          getTokenPostData = response.data;
-          setTokenBriefingWidget(response);
-        }
-      });
-      reloadMomoPost();
-    }, 60000);
-
-  reloadMomoPost();
 
   return (
     <div className="token-wrap">
