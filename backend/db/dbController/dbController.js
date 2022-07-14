@@ -1,6 +1,7 @@
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const { send } = require('process');
 
 const APPLY_DB_VERSION = 1;
 const DB_NAME = path.join(__dirname, '../../Data', 'Token-Briefing.sqlite');
@@ -162,6 +163,35 @@ class DBController {
     });
   }
 
+  // 특정 메모 조회
+  getMemoPost(key, res) {
+    this.db.serialize(() => {
+      this.db.get(`SELECT * FROM 'memo_post' WHERE key=${key}`, (err, data) => {
+        if (err) {
+          console.error(`DB ERR: 'memo_post' 불러오기 오류\n${err}`);
+          return res.send({ process: false, message: '메모 정보가 없습니다.' });
+        } else {
+          return res.send(data);
+        }
+      });
+    });
+  }
+
+  // 특정 메모 삭제
+  deleteMemoPost(key, res) {
+    this.db.serialize(() => {
+      this.db.all(`DELETE FROM 'memo_post' WHERE key='${key}'`, (err, rows) => {
+        if (err) {
+          console.log(`DB ERR: 'memo_post' 메모 포스트 삭제 오류\n${err}`);
+          return res.send({ process: false, message: '메모 삭제 실패' });
+        } else {
+          return res.send({ process: true });
+        }
+      });
+    });
+  }
+
+  // 토큰 포스트 추가
   addTokenBriefingPost(tokenbriefing, res) {
     this.db.serialize();
     this.db.run(

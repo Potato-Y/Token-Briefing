@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
 router.post('/memo/upload', (req, res) => {
   try {
     const data = req.body;
-    console.log(data.writer);
     if (data.writer != undefined && req.body.content != undefined) {
       var memo = new Memo();
       memo.setMemoForApiRes(data);
@@ -34,6 +33,23 @@ router.post('/memo/upload', (req, res) => {
 // 최근 10건 조회
 router.get('/memo/last10', (req, res) => {
   dbController.getMemoPostLast10(res);
+});
+
+// 특정 메모 포스트 조회
+router.get('/memo/get/:id', (req, res) => {
+  let id = req.params.id;
+
+  dbController.getMemoPost(id, res);
+});
+
+// 특정 메모 삭제
+router.post('/memo/delete', (req, res) => {
+  try {
+    dbController.deleteMemoPost(req.body.key, res);
+  } catch (err) {
+    console.error('err: ' + err);
+    res.send({ process: false, message: null });
+  }
 });
 
 // 새로운 토큰 브리핑 포스트 업로드

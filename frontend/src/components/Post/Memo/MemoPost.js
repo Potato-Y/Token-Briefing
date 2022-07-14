@@ -16,7 +16,7 @@ const MemoPost = (props) => {
         console.log('받은 최신 메모가 없습니다.');
       } else {
         getMemoData = response.data;
-        setMemoList(response.data.map((row) => <MemoItem key={row.key} mode="read" writer={row.writer} date={row.date} content={row.content} />));
+        setMemoList(response.data.map((row) => <MemoItem key={row.key} id={row.key} mode="read" writer={row.writer} date={row.date} content={row.content} />));
       }
     });
 
