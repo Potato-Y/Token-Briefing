@@ -29,7 +29,7 @@ form {
 /* 메모 내용 입력 */
 .new-memo-textarea {
   width: 98%;
-  height: 50%;
+  height: 70px;
   margin-top: 5px;
   resize: none;
   background-color: #ffffff00;
@@ -54,6 +54,9 @@ form {
 
 .memo-save-button {
   float: right;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
 
   background-color: #cfc9b6;
   border: none;
