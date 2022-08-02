@@ -22,7 +22,6 @@ form {
 }
 
 .memo-title {
-  font-family: 'NanumSquareEB';
   font-size: 13px;
 }
 
@@ -66,6 +65,7 @@ form {
 .memo-contents {
   width: 98%;
   height: 80px;
+  font-family: 'NanumGothic';
 
   font-size: 14px;
   line-height: 130%;

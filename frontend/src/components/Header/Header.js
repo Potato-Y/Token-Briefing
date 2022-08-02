@@ -22,7 +22,7 @@ const Header = () => {
           Token Briefing
         </span>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <NavLink to="/settings" className={'navlink-to-reset'}>
+        <NavLink to="/settings" className={'navlink-to-reset'} style={{ fontFamily: 'NanumGothic' }}>
           설정
         </NavLink>
       </div>

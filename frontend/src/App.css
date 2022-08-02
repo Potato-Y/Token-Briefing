@@ -1,32 +1,32 @@
 /* 나눔 스퀘어 굵음 */
 @font-face {
-    font-family: "NanumSquareEB";
-    src: url("/src/assets/font/NanumSquareEB.ttf");
+  font-family: 'NanumSquareRoundEB';
+  src: url('/src/assets/font/NanumSquareRoundEB.ttf');
 }
 
 /* 나눔 고딕 */
 @font-face {
-    font-family: "NanumGothic";
-    src: url("/src/assets/font/NanumGothic.otf");
+  font-family: 'NanumGothic';
+  src: url('/src/assets/font/NanumGothic.otf');
 }
 
 body {
-    background-color: #9FB1BC;
-    font-family: NanumGothic;
+  background-color: #9fb1bc;
+  font-family: NanumSquareRoundEB;
 }
 
 .wrap {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .item-wrap {
-    margin: 0 auto;
-    width: 1000px;
+  margin: 0 auto;
+  width: 1000px;
 }
 
 /* 파란 밑줄 없애기 */
 .navlink-to-reset {
-    color: #000000;
-    text-decoration: none;
+  color: #000000;
+  text-decoration: none;
 }

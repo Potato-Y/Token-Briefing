@@ -23,7 +23,7 @@ const TokenBriefing = (props) => {
       <div>
         <div className="token-panel-wrap">
           <div className="token-panel-content-wrap">
-            <span style={{ fontFamily: 'NanumSquareEB' }}>{date}</span>에 업로드 된 오전 마감 번호입니다.
+            <span style={{ fontFamily: 'NanumGothic' }}>{date}</span>에 업로드 된 오전 마감 번호입니다.
             <br />
             작성자: {writer}
             <br />
@@ -40,9 +40,11 @@ const TokenBriefing = (props) => {
               5000: {token5000}
               <br />
               <br />
-              메모
-              <br />
-              {memo}
+              <span className="memo-content">
+                메모
+                <br />
+                {memo}
+              </span>
             </div>
           </div>
         </div>

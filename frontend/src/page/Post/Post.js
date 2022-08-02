@@ -26,7 +26,7 @@ const Post = () => {
   return (
     <div style={{ padding: '20px' }}>
       <div className="memo-post-wrap">
-        <div className="memo-content-wrap">
+        <div className="memo-content-wrap" style={{ fontFamily: 'NanumGothic' }}>
           작성자: {memoData.writer} | 생성 날짜: {memoData.date} [
           <span
             style={{ cursor: 'pointer' }}

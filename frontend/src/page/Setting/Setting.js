@@ -84,7 +84,7 @@ function Setting() {
     },
   ].map((row) => (
     <div>
-      <p>
+      <p className="setting-contents">
         -{row.name}
         <br />
         {row.license}
@@ -111,7 +111,7 @@ function Setting() {
       {/* 새로운 작성자 등록 */}
       <p>
         <div className="setting-name"> + 새로운 작성자 등록</div>
-        새로운 작성자를 등록합니다.
+        <span className="setting-contents">새로운 작성자를 등록합니다.</span>
         <form
           onSubmit={(event) => {
             // 저장 버튼 클릭 시 작동하는 기본 기능 제거
@@ -153,7 +153,7 @@ function Setting() {
       {/* 기존 작성자 삭제 */}
       <p>
         <div className="setting-name"> + 기존 작성자 삭제</div>
-        기존에 존재하는 작성자를 목록에서 제거합니다.
+        <span className="setting-contents">기존에 존재하는 작성자를 목록에서 제거합니다.</span>
         <form
           onSubmit={(event) => {
             // 저장 버튼 클릭 시 작동하는 기본 기능 제거
@@ -197,6 +197,18 @@ function Setting() {
       <div>
         <p>사용된 오픈소스</p>
         {usedOpenSource}
+      </div>
+
+      <div>
+        <p>사용된 폰트</p>
+        <p className="setting-contents">
+          - NanumGothic, NanumSquareRound
+          <br />
+          Copyright (c) 2010, NAVER Corporation (https://www.navercorp.com/) with Reserved Font Name Nanum, Naver Nanum, NanumGothic, Naver NanumGothic, NanumMyeongjo, Naver NanumMyeongjo, NanumBrush,
+          Naver NanumBrush, NanumPen, Naver NanumPen, Naver NanumGothicEco, NanumGothicEco, Naver NanumMyeongjoEco, NanumMyeongjoEco, Naver NanumGothicLight, NanumGothicLight, NanumBarunGothic, Naver
+          NanumBarunGothic, NanumSquareRound, NanumBarunPen, MaruBuri ​ This Font Software is licensed under the SIL Open Font License, Version 1.1. ​ This license is copied below, and is also
+          available with a FAQ at: ​http://scripts.sil.org/OFL ​ SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+        </p>
       </div>
     </div>
   );
