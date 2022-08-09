@@ -82,6 +82,11 @@ function Setting() {
       license: 'MIT',
       link: 'https://github.com/TryGhost/node-sqlite3',
     },
+    {
+      name: 'pkg',
+      license: 'MIT',
+      link: 'https://github.com/vercel/pkg/blob/main/LICENSE',
+    },
   ].map((row) => (
     <div>
       <p className="setting-contents">
