@@ -10,7 +10,7 @@ const MemoPost = (props) => {
 
   if (memoList === null) {
     // memoList가 null일 경우 메모의 정보를 가져오지 않은 것으로 인지, 데이터를 가져오기
-    axios.get('/api/v1/memo/last10').then((response) => {
+    axios.get('/api/v1/memo/last/30').then((response) => {
       if (response.data === '') {
         console.log('받은 최신 메모가 없습니다.');
       } else {

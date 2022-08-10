@@ -31,8 +31,9 @@ router.post('/memo/upload', (req, res) => {
 });
 
 // 최근 10건 조회
-router.get('/memo/last10', (req, res) => {
-  dbController.getMemoPostLast10(res);
+router.get('/memo/last/:num', (req, res) => {
+  let num = req.params.num;
+  dbController.getMemoPostLastNum(num, res);
 });
 
 // 특정 메모 포스트 조회
