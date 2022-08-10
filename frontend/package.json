@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -14,7 +14,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "def-start": "react-scripts start",
+    "start": "export PORT=3001 && react-scripts start",
+    "wstart": "set PORT=3001 && react-scripts start",
     "build": "BUILD_PATH='../backend/public' react-scripts build",
     "winbuild": "set \"BUILD_PATH=..\\backend\\public\" && react-scripts build",
     "test": "react-scripts test",
