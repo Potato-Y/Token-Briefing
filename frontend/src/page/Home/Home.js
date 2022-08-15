@@ -16,6 +16,8 @@ const Home = () => {
     });
   }
 
+  Notification.requestPermission();
+
   return (
     <div id="total-container">
       <div className="memo-container">
