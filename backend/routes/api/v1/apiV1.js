@@ -25,7 +25,7 @@ router.post('/memo/upload', (req, res) => {
       dbController.addMemoPost(memo, res);
     }
   } catch (err) {
-    console.log('err:' + err);
+    console.error('err: ' + err);
     res.send({ process: false, message: null });
   }
 });
@@ -61,7 +61,7 @@ router.post('/tokenbriefing/upload', (req, res) => {
 
     dbController.addTokenBriefingPost(tokenbriefing.data, res);
   } catch (err) {
-    console.log('err:' + err);
+    console.error('err: ' + err);
     res.send({ process: false, message: null });
   }
 });

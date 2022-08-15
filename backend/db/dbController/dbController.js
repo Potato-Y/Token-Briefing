@@ -181,7 +181,7 @@ class DBController {
     this.db.serialize(() => {
       this.db.all(`DELETE FROM 'memo_post' WHERE key='${key}'`, (err, rows) => {
         if (err) {
-          console.log(`DB ERR: 'memo_post' 메모 포스트 삭제 오류\n${err}`);
+          console.error(`DB ERR: 'memo_post' 메모 포스트 삭제 오류\n${err}`);
           return res.send({ process: false, message: '메모 삭제 실패' });
         } else {
           return res.send({ process: true });
@@ -273,7 +273,7 @@ class DBController {
     this.db.serialize(() => {
       this.db.all(`DELETE FROM 'writer' WHERE name='${data.name}'`, (err, rows) => {
         if (err) {
-          console.log(`DB ERR: 'writer' 작성자 삭제 오류\n${err}`);
+          console.error(`DB ERR: 'writer' 작성자 삭제 오류\n${err}`);
           return res.send({ process: false, message: '사용자 삭제 실패' });
         } else {
           return res.send({ process: true });

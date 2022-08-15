@@ -13,7 +13,6 @@ class TokenBriefing {
   setTokenBriefingForApiRes(data) {
     // api를 통해 받은 데이터를 저장
     this.writer = data.writer;
-    console.log(`${data.token1000}: ${isNaN(data.token1000)}`);
     if (data.token1000 != undefined && !isNaN(data.token1000)) this.token1000 = data.token1000;
     if (data.token2000 != undefined && !isNaN(data.token2000)) this.token2000 = data.token2000;
     if (data.token3000 != undefined && !isNaN(data.token3000)) this.token3000 = data.token3000;
