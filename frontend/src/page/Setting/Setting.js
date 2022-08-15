@@ -194,7 +194,7 @@ function Setting() {
             <option value="">작성자 선택</option>
             {writerList}
           </select>
-          <input type="submit" value="저장" />
+          <input type="submit" value="삭제" />
         </form>
       </p>
       <br />
