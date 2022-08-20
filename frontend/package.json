@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "export PORT=3001 && react-scripts start",
-    "wstart": "set PORT=30001 && react-scripts start",
+    "wstart": "set PORT=3001 && react-scripts start",
     "build": "BUILD_PATH='../backend/public' react-scripts build",
     "wbuild": "set \"BUILD_PATH=..\\backend\\public\" && react-scripts build",
     "test": "react-scripts test",
