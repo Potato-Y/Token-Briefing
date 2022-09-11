@@ -4,7 +4,14 @@ const Memo = require('../../../db/dbModel/memo');
 const TokenBriefing = require('../../../db/dbModel/tokenBriefing');
 const router = express.Router();
 
+/** 자주 조회되는 내용은 저장소 과부하를 줄이기 위해 temp를 전송 */
+// let tempMemoDbData = new TempMemoDbData();
+// let temptokenbriefingDbData = new TemptokenbriefingDbData();
+
+// const dbController = new DBController(setTempMemoDbData, setTemptokenbriefingDbData);
+
 const dbController = new DBController();
+
 dbController.connectDB();
 
 router.use((req, res, next) => {
@@ -30,10 +37,21 @@ router.post('/memo/upload', (req, res) => {
   }
 });
 
-// 최근 10건 조회
+// 최근 n건 조회
 router.get('/memo/last/:num', (req, res) => {
   let num = req.params.num;
   dbController.getMemoPostLastNum(num, res);
+});
+
+// 날짜로 해당 날짜의 모든 메모 조회하기
+router.get('/memo/by_date/:date', (req, res) => {
+  let date = req.params.date;
+  dbController.getThisDateMemo(dbController.manualDay, date, res);
+});
+
+// 당일 모든 메모 조회하기
+router.get('/memo/today_all', (req, res) => {
+  dbController.getThisDateMemo(dbController.today, null, res);
 });
 
 // 특정 메모 포스트 조회
@@ -97,3 +115,60 @@ router.post('/writer/delete', (req, res) => {
 });
 
 module.exports = router;
+
+/**
+ * 현재 날짜와 시간 얻기
+ * @returns {String} 현재 날짜와 시간을 반환
+ */
+const getDate = () => {
+  // 컴퓨터의 표준 시간 상관 없이 항상 한국 시간이 나타나도록 하기
+  const localDate = new Date(); // locale 시간
+  // UTC 시간 계산
+  const utc = localDate.getTime() + localDate.getTimezoneOffset() * 60 * 1000;
+  // UTC -> KST (UTC + 9 시간)
+  const KR_TIME_EIFF = 9 * 60 * 60 * 1000;
+  const krDate = new Date(utc + KR_TIME_EIFF);
+  var nowTimeYear = krDate.getFullYear();
+  var nowTimeMonth = ('00' + (krDate.getMonth() + 1)).slice(-2);
+  var nowTimeDate = ('00' + krDate.getDate()).slice(-2);
+  var nowTimeHur = ('00' + krDate.getHours()).slice(-2);
+  var nowTimeMin = ('00' + krDate.getMinutes()).slice(-2);
+  var nowTimeSec = ('00' + krDate.getSeconds()).slice(-2);
+
+  // 현재 시간 (처리 시간)
+  const date = `${nowTimeYear}-${nowTimeMonth}-${nowTimeDate} ${nowTimeHur}:${nowTimeMin}:${nowTimeSec}`;
+
+  return date;
+};
+
+class TempMemoDbData {
+  constructor() {
+    /** 마지막 업데이트 시간 */
+    this.lastUpdate;
+    /** 메모 DB 데이터 */
+    this.memoDbData;
+  }
+
+  /**
+   * 메모 데이터 설정
+   * @param data DB Data
+   */
+  setTempMemoData(data) {
+    this.memoDbData = data;
+    this.lastUpdate = getDate();
+  }
+}
+
+class TemptokenbriefingDbData {
+  constructor() {
+    /** 마지막 업데이트 시간 */
+    this.lastUpdate;
+    /** tokenbriefing DB 데이터 */
+    this.tokenbriefingDbData;
+  }
+
+  setTemptokenbriefingDbData(data) {
+    this.tokenbriefingDbData = data;
+    this.lastUpdate = getDate();
+  }
+}

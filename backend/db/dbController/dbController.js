@@ -151,9 +151,86 @@ class DBController {
     );
   }
 
-  // 최근 n건 조회
+  /**
+   * 최근 n건 조회
+   * @deprecated
+   */
   getMemoPostLastNum(num, res) {
     this.db.all(`SELECT * FROM 'memo_post' ORDER BY ROWID DESC LIMIT ${num}`, [], (err, rows) => {
+      if (err) {
+        console.error(`DB ERR: 'memo_post' 불러오기 오류\n${err}`);
+      } else {
+        return res.send(rows);
+      }
+    });
+  }
+
+  /**
+   * getThisDateMemo에서 타입에 사용
+   * @returns 오늘
+   */
+  get today() {
+    return 0;
+  }
+
+  /**
+   * getThisDateMemo에서 타입에 사용
+   * @returns 직접 설정
+   */
+  get manualDay() {
+    return 1;
+  }
+
+  /**
+   * 특정 날짜에 대한 메모를 조회
+   * @param {Integer} type today, 혹은 manualDay
+   * @param {String} schDate 검색할 날짜
+   * @param  res
+   */
+  getThisDateMemo(type, schDate, res) {
+    /** 기준 날짜 */
+    let setDate;
+    /** 기준 날짜 +1 */
+    let setADayLater;
+
+    if (type == this.today) {
+      setDate = new Date(); // 오늘을 기준 날짜로 설정
+      setADayLater = new Date();
+      setADayLater.setDate(setADayLater.getDate() + 1); // 오늘보다 하루 뒤로 날짜를 설정
+    } else if (type == this.manualDay) {
+      let arrSchDate = schDate.split('-');
+      setDate = new Date(arrSchDate[0], arrSchDate[1] - 1, arrSchDate[2]); // 설정한 날짜로 설정
+      setADayLater = new Date(arrSchDate[0], arrSchDate[1], arrSchDate[2]);
+      setADayLater.setDate(setADayLater.getDate() + 1); // 설정한 날짜보다 뒤로 날짜를 설정
+    } else {
+      return console.error('err: day search type error');
+    }
+
+    var nowTimeYear = setDate.getFullYear();
+    var nowTimeMonth = ('00' + (setDate.getMonth() + 1)).slice(-2);
+    var nowTimeDate = ('00' + setDate.getDate()).slice(-2);
+
+    const strDate = `${nowTimeYear}-${nowTimeMonth}-${nowTimeDate}`;
+
+    nowTimeYear = setADayLater.getFullYear();
+    nowTimeMonth = ('00' + (setADayLater.getMonth() + 1)).slice(-2);
+    nowTimeDate = ('00' + setADayLater.getDate()).slice(-2);
+
+    const strADayLater = `${nowTimeYear}-${nowTimeMonth}-${nowTimeDate}`;
+
+    /** 기본적인 베이스 쿼리 */
+    const query = `
+      SELECT * FROM (
+        SELECT *
+        FROM memo_post
+        WHERE CAST(strftime('%s', date) AS integer ) > CAST(strftime('%s', '${strDate}') AS integer)
+        )
+        WHERE CAST(strftime('%s', date) AS integer ) < CAST(strftime('%s', '${strADayLater}') AS integer);
+    `;
+
+    console.log('strDate: ' + strDate + ',' + 'strADayLater' + strADayLater);
+    this.db.serialize();
+    this.db.all(query, [], (err, rows) => {
       if (err) {
         console.error(`DB ERR: 'memo_post' 불러오기 오류\n${err}`);
       } else {
