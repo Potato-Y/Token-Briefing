@@ -22,6 +22,13 @@ router.get('/', (req, res) => {
   res.send('error');
 });
 
+// 클라이언트에서 서버 온라인 확인용
+router.get('/status', (req, res) => {
+  res.json({
+    status: true,
+  });
+});
+
 // 새로운 메모 업로드
 router.post('/memo/upload', (req, res) => {
   try {
