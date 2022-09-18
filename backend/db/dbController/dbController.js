@@ -12,7 +12,7 @@ class DBController {
     this.lastLatestDBVersion = 1; // 최신 DB 버전
   }
 
-  connectDB() {
+  connectDB(setTempMemoDbData, setTemptokenbriefingDbData) {
     makeFoler('./Data'); // 디렉터리가 없으면 생성
 
     this.db = new sqlite3.Database(DB_NAME, (err) => {
@@ -113,6 +113,10 @@ class DBController {
           try {
             if (!isNaN(value.db_version)) {
               console.log('연결된 DB 버전: ' + value.db_version);
+
+              // 메모와 토큰 정보를 api 측 변수에 저장합니다.
+              this.getThisDateMemo(this.today, null, null, setTempMemoDbData);
+              this.getLastLatestTokenBriefingPost(setTemptokenbriefingDbData);
             } else {
               console.error('버전 정보를 불러오지 못 하였습니다. DB 파일이 정상적으로 생성되어 있는지 확인하세요.\n간단 조치: Data 폴더를 지우고 프로그램을 다시 실행하세요.');
             }
@@ -128,7 +132,7 @@ class DBController {
     return this.db;
   }
 
-  addMemoPost(memo, res) {
+  addMemoPost(memo, res, setTempMemoDbData) {
     this.db.run(
       `INSERT INTO 'memo_post'(
         writer,
@@ -145,7 +149,10 @@ class DBController {
           console.error(`DB ERR: 'memo_post' 데이터 추가 실패. \n${err}`);
           return res.send({ process: false, message: null });
         } else {
-          return res.send({ process: true });
+          res.send({ process: true });
+          // 메모와 토큰 정보를 api 측 변수에 저장합니다.
+          this.getThisDateMemo(this.today, null, null, setTempMemoDbData);
+          return true;
         }
       }
     );
@@ -187,7 +194,7 @@ class DBController {
    * @param {String} schDate 검색할 날짜
    * @param  res
    */
-  getThisDateMemo(type, schDate, res) {
+  getThisDateMemo(type, schDate, res, setTempData) {
     /** 기준 날짜 */
     let setDate;
     /** 기준 날짜 +1 */
@@ -228,13 +235,19 @@ class DBController {
         WHERE CAST(strftime('%s', date) AS integer ) < CAST(strftime('%s', '${strADayLater}') AS integer);
     `;
 
-    console.log('strDate: ' + strDate + ',' + 'strADayLater' + strADayLater);
+    // console.log('strDate: ' + strDate + ',' + 'strADayLater' + strADayLater);
     this.db.serialize();
     this.db.all(query, [], (err, rows) => {
       if (err) {
         console.error(`DB ERR: 'memo_post' 불러오기 오류\n${err}`);
       } else {
-        return res.send(rows);
+        if (type == this.manualDay) {
+          // 만약 api로 특정 날짜에 대한 메모를 요청한 경우 res로 값을 보내준다.
+          return res.send(rows);
+        } else if (type == this.today) {
+          // 만약 오늘 업로드한 메모에 대해 요청하는 경우 api 측 변수에 저장한다.
+          setTempData.setData(rows);
+        }
       }
     });
   }
@@ -268,7 +281,7 @@ class DBController {
   }
 
   // 토큰 포스트 추가
-  addTokenBriefingPost(tokenbriefing, res) {
+  addTokenBriefingPost(tokenbriefing, res, temptokenbriefingDbData) {
     this.db.serialize();
     this.db.run(
       `INSERT INTO 'token_briefing_post'(
@@ -296,19 +309,20 @@ class DBController {
           console.error(`DB ERR: 'token_briefing' 데이터 추가 실패. \n${err}`);
           return res.send({ process: false, message: null });
         } else {
-          return res.send({ process: true });
+          res.send({ process: true });
+          return this.getLastLatestTokenBriefingPost(temptokenbriefingDbData);
         }
       }
     );
   }
 
   // 최신 토큰 브리핑 포스트 데이터 얻기
-  getLastLatestTokenBriefingPost(res) {
+  getLastLatestTokenBriefingPost(setTempData) {
     this.db.get(`SELECT * FROM 'token_briefing_post' ORDER BY ROWID DESC LIMIT 1`, (err, data) => {
       if (err) {
         console.error(`DB ERR: 'token_briefing_post' 불러오기 오류\n${err}`);
       } else {
-        return res.send(data);
+        return setTempData.setData(data);
       }
     });
   }

@@ -10,7 +10,9 @@ const TokenPost = (props) => {
   const [tokenBriefing, setTokenBriefing] = useState(null);
 
   const setTokenBriefingWidget = (response) => {
-    if (response.data.date === undefined) {
+    let data = response.data.tokenbriefingDbData;
+
+    if (data.date === undefined) {
       console.log('토큰 브리핑의 최신 데이터를 찾을 수 없음');
       setTokenBriefing(<TokenBriefing mode={false} />);
     } else {
@@ -28,9 +30,9 @@ const TokenPost = (props) => {
       // 현재 시간 (처리 시간)
       const date = `${nowTimeYear}-${nowTimeMonth}-${nowTimeDate}`;
 
-      if (response.data.date.split(' ')[0] === date) {
+      if (data.date.split(' ')[0] === date) {
         // 만약 오늘 업로드 된 글이 맞다면 모드를 true
-        setTokenBriefing(<TokenBriefing mode={true} tokenData={response.data} />);
+        setTokenBriefing(<TokenBriefing mode={true} tokenData={data} />);
       } else {
         // 오늘 작성한 글이 아니라면 false
         setTokenBriefing(<TokenBriefing mode={false} />);

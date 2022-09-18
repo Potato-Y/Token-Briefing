@@ -1,3 +1,43 @@
+class TempMemoDbData {
+  constructor() {
+    /** 마지막 업데이트 시간 */
+    this.lastUpdate;
+    /** 메모 DB 데이터 */
+    this.memoDbData;
+  }
+
+  /**
+   * 메모 데이터 설정
+   * @param data DB Data
+   */
+  setData(data) {
+    this.memoDbData = data;
+    this.lastUpdate = getDate();
+  }
+
+  get data() {
+    return { lastUpdate: this.lastUpdate, memoDbData: this.memoDbData };
+  }
+}
+
+class TemptokenbriefingDbData {
+  constructor() {
+    /** 마지막 업데이트 시간 */
+    this.lastUpdate;
+    /** tokenbriefing DB 데이터 */
+    this.tokenbriefingDbData;
+  }
+
+  setData(data) {
+    this.tokenbriefingDbData = data;
+    this.lastUpdate = getDate();
+  }
+
+  get data() {
+    return { lastUpdate: this.lastUpdate, tokenbriefingDbData: this.tokenbriefingDbData };
+  }
+}
+
 const express = require('express');
 const DBController = require('../../../db/dbController/dbController');
 const Memo = require('../../../db/dbModel/memo');
@@ -5,14 +45,12 @@ const TokenBriefing = require('../../../db/dbModel/tokenBriefing');
 const router = express.Router();
 
 /** 자주 조회되는 내용은 저장소 과부하를 줄이기 위해 temp를 전송 */
-// let tempMemoDbData = new TempMemoDbData();
-// let temptokenbriefingDbData = new TemptokenbriefingDbData();
-
-// const dbController = new DBController(setTempMemoDbData, setTemptokenbriefingDbData);
+const tempMemoDbData = new TempMemoDbData();
+const temptokenbriefingDbData = new TemptokenbriefingDbData();
 
 const dbController = new DBController();
 
-dbController.connectDB();
+dbController.connectDB(tempMemoDbData, temptokenbriefingDbData);
 
 router.use((req, res, next) => {
   next();
@@ -36,7 +74,7 @@ router.post('/memo/upload', (req, res) => {
     if (data.writer != undefined && req.body.content != undefined) {
       var memo = new Memo();
       memo.setMemoForApiRes(data);
-      dbController.addMemoPost(memo, res);
+      dbController.addMemoPost(memo, res, tempMemoDbData);
     }
   } catch (err) {
     console.error('err: ' + err);
@@ -58,7 +96,8 @@ router.get('/memo/by_date/:date', (req, res) => {
 
 // 당일 모든 메모 조회하기
 router.get('/memo/today_all', (req, res) => {
-  dbController.getThisDateMemo(dbController.today, null, res);
+  // dbController.getThisDateMemo(dbController.today, null, res);
+  res.json(tempMemoDbData.data);
 });
 
 // 특정 메모 포스트 조회
@@ -84,7 +123,7 @@ router.post('/tokenbriefing/upload', (req, res) => {
     const tokenbriefing = new TokenBriefing();
     tokenbriefing.setTokenBriefingForApiRes(req.body);
 
-    dbController.addTokenBriefingPost(tokenbriefing.data, res);
+    dbController.addTokenBriefingPost(tokenbriefing.data, res, temptokenbriefingDbData);
   } catch (err) {
     console.error('err: ' + err);
     res.send({ process: false, message: null });
@@ -93,7 +132,8 @@ router.post('/tokenbriefing/upload', (req, res) => {
 
 // 최신 토큰 브리핑 포스트
 router.get('/tokenbriefing/last_latest_post', (req, res) => {
-  dbController.getLastLatestTokenBriefingPost(res);
+  // dbController.getLastLatestTokenBriefingPost(res);
+  res.json(temptokenbriefingDbData.data);
 });
 
 // 새로운 작성자 이름 등록
@@ -147,35 +187,3 @@ const getDate = () => {
 
   return date;
 };
-
-class TempMemoDbData {
-  constructor() {
-    /** 마지막 업데이트 시간 */
-    this.lastUpdate;
-    /** 메모 DB 데이터 */
-    this.memoDbData;
-  }
-
-  /**
-   * 메모 데이터 설정
-   * @param data DB Data
-   */
-  setTempMemoData(data) {
-    this.memoDbData = data;
-    this.lastUpdate = getDate();
-  }
-}
-
-class TemptokenbriefingDbData {
-  constructor() {
-    /** 마지막 업데이트 시간 */
-    this.lastUpdate;
-    /** tokenbriefing DB 데이터 */
-    this.tokenbriefingDbData;
-  }
-
-  setTemptokenbriefingDbData(data) {
-    this.tokenbriefingDbData = data;
-    this.lastUpdate = getDate();
-  }
-}
