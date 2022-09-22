@@ -110,7 +110,7 @@ router.get('/memo/get/:id', (req, res) => {
 // 특정 메모 삭제
 router.post('/memo/delete', (req, res) => {
   try {
-    dbController.deleteMemoPost(req.body.key, res);
+    dbController.deleteMemoPost(req.body.key, res, tempMemoDbData);
   } catch (err) {
     console.error('err: ' + err);
     res.send({ process: false, message: null });

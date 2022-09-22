@@ -267,13 +267,14 @@ class DBController {
   }
 
   // 특정 메모 삭제
-  deleteMemoPost(key, res) {
+  deleteMemoPost(key, res, setTempMemo) {
     this.db.serialize(() => {
       this.db.all(`DELETE FROM 'memo_post' WHERE key='${key}'`, (err, rows) => {
         if (err) {
           console.error(`DB ERR: 'memo_post' 메모 포스트 삭제 오류\n${err}`);
           return res.send({ process: false, message: '메모 삭제 실패' });
         } else {
+          this.getThisDateMemo(this.today, null, null, setTempMemo);
           return res.send({ process: true });
         }
       });
