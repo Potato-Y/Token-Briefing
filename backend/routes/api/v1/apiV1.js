@@ -161,6 +161,24 @@ router.post('/writer/delete', (req, res) => {
   }
 });
 
+router.get('/client/release_version', (req, res) => {
+  res.json({ version: '0.1.0' });
+});
+
+router.get('/client/updater', (req, res) => {
+  let path = require('path');
+  let file = path.join(__dirname, '../../../assets/client', 'dummy1.txt');
+
+  res.download(file);
+});
+
+router.get('/client/download', (req, res) => {
+  let path = require('path');
+  let file = path.join(__dirname, '../../../assets/client', 'dummy2.txt');
+
+  res.download(file);
+});
+
 module.exports = router;
 
 /**
