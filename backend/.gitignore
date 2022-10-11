@@ -2,6 +2,8 @@
 public/
 Data/
 Build/
+TB_client_updater.exe
+TB_client_setup.exe
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,node
