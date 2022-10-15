@@ -162,22 +162,22 @@ router.post('/writer/delete', (req, res) => {
 });
 
 // 최신 버전 정보 제공
-router.get('/client/release_version', (req, res) => {
+router.get('/client/data/release_version', (req, res) => {
   res.json({ version: '0.1.0' });
 });
 
-// 업데이트 헬퍼 프로그램 다운로드 제공
-router.get('/client/updater', (req, res) => {
+// 윈도우 업데이트 헬퍼 프로그램 다운로드 제공
+router.get('/client/download/win/updater', (req, res) => {
   let path = require('path');
-  let file = path.join(__dirname, '../../../assets/client', 'TB_client_updater.exe');
+  let file = path.join(__dirname, '../../../assets/client/win', 'TB_client_updater.exe');
 
   res.download(file);
 });
 
-// 클라이언트 설치 프로그램 다운로드 제공
-router.get('/client/download', (req, res) => {
+// 윈도우 클라이언트 설치 프로그램 다운로드 제공
+router.get('/client/download/win/setup', (req, res) => {
   let path = require('path');
-  let file = path.join(__dirname, '../../../assets/client', 'TB_client_setup.exe');
+  let file = path.join(__dirname, '../../../assets/client/win', 'TB_client_setup.exe');
 
   res.download(file);
 });
