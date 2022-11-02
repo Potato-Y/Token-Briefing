@@ -23,7 +23,8 @@
   "pkg": {
     "assets": [
       "node_modules/**/*",
-      "public/**/*"
+      "public/**/*",
+      "assets/**/*"
     ],
     "outputPath": "build"
   }

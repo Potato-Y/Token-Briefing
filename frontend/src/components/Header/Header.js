@@ -25,6 +25,10 @@ const Header = () => {
         <NavLink to="/settings" className={'navlink-to-reset'} style={{ fontFamily: 'NanumGothic' }}>
           설정
         </NavLink>
+        &nbsp;&nbsp;|&nbsp;&nbsp;{' '}
+        <a href="/api/v1/client/download/win/setup" className={'navlink-to-reset'} style={{ fontFamily: 'NanumGothic' }}>
+          다운로드
+        </a>
       </div>
       <Outlet />
     </div>
