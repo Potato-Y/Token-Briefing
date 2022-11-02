@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
+import About from './page/About/AboutPage';
 import Home from './page/Home/Home';
 import NotFound from './page/NotFound';
 import Post from './page/Post/Post';
@@ -18,6 +19,7 @@ function App() {
           <Route path="/post" element={<Post />}>
             <Route path=":id" element={<Post />} />
           </Route>
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
