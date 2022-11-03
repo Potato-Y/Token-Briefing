@@ -1,106 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import useTitle from '../../function/useTitle';
 import './Setting.css';
 
 function Setting() {
   useTitle('Token Briefing - 설정');
   const [writerList, setWriterList] = useState(null);
-  const usedOpenSource = [
-    {
-      name: 'axios',
-      license: 'MIT',
-      link: 'https://github.com/axios/axios/blob/v1.x/LICENSE',
-    },
-    {
-      name: 'react',
-      license: 'MIT',
-      link: 'https://github.com/facebook/react/blob/main/LICENSE',
-    },
-    {
-      name: 'react-dom',
-      license: 'MIT',
-      link: 'https://github.com/facebook/react/blob/main/LICENSE',
-    },
-    {
-      name: 'react-router',
-      license: 'MIT',
-      link: 'https://github.com/remix-run/react-router/blob/main/LICENSE.md',
-    },
-    {
-      name: 'react-scripts',
-      license: 'MIT',
-      link: 'https://github.com/facebook/create-react-app/blob/main/LICENSE',
-    },
-    {
-      name: 'web-vitals',
-      license: 'Apache-2.0',
-      link: 'https://github.com/GoogleChrome/web-vitals/blob/main/LICENSE',
-    },
-    {
-      name: '@testing-library/jest-dom',
-      license: 'MIT',
-      link: 'https://github.com/testing-library/jest-dom/blob/main/LICENSE',
-    },
-    {
-      name: '@testing-library/react',
-      license: 'MIT',
-      link: 'https://github.com/testing-library/react-testing-library/blob/main/LICENSE',
-    },
-    {
-      name: '@testing-library/user-event',
-      license: 'MIT',
-      link: 'https://github.com/testing-library/user-event/blob/main/LICENSE',
-    },
-    {
-      name: 'cookie-parser',
-      license: 'MIT',
-      link: 'https://github.com/expressjs/cookie-parser/blob/master/LICENSE',
-    },
-    {
-      name: 'debug',
-      license: 'MIT',
-      link: 'https://github.com/debug-js/debug/blob/master/LICENSE',
-    },
-    {
-      name: 'express',
-      license: 'MIT',
-      link: 'https://github.com/expressjs/express/blob/master/LICENSE',
-    },
-    {
-      name: 'http-errors',
-      license: 'MIT',
-      link: 'https://github.com/jshttp/http-errors/blob/master/LICENSE',
-    },
-    {
-      name: 'morgan',
-      license: 'MIT',
-      link: 'https://github.com/expressjs/morgan/blob/master/LICENSE',
-    },
-    {
-      name: 'sqlite3',
-      license: 'MIT',
-      link: 'https://github.com/TryGhost/node-sqlite3',
-    },
-    {
-      name: 'pkg',
-      license: 'MIT',
-      link: 'https://github.com/vercel/pkg/blob/main/LICENSE',
-    },
-  ].map((row) => (
-    <div>
-      <p className="setting-contents">
-        -{row.name}
-        <br />
-        {row.license}
-        <br />
-        <a href={row.link} target="_blank" rel="noopener noreferrer">
-          {row.link}
-        </a>
-      </p>
-      <br />
-    </div>
-  ));
 
   // 작성자 리스트가 비어있으면 불러오기
   if (writerList === null) {
@@ -199,22 +105,10 @@ function Setting() {
       </p>
       <br />
       <br />
-      <div>
-        <p>사용된 오픈소스</p>
-        {usedOpenSource}
-      </div>
 
-      <div>
-        <p>사용된 폰트</p>
-        <p className="setting-contents">
-          - NanumGothic, NanumSquareRound
-          <br />
-          Copyright (c) 2010, NAVER Corporation (https://www.navercorp.com/) with Reserved Font Name Nanum, Naver Nanum, NanumGothic, Naver NanumGothic, NanumMyeongjo, Naver NanumMyeongjo, NanumBrush,
-          Naver NanumBrush, NanumPen, Naver NanumPen, Naver NanumGothicEco, NanumGothicEco, Naver NanumMyeongjoEco, NanumMyeongjoEco, Naver NanumGothicLight, NanumGothicLight, NanumBarunGothic, Naver
-          NanumBarunGothic, NanumSquareRound, NanumBarunPen, MaruBuri ​ This Font Software is licensed under the SIL Open Font License, Version 1.1. ​ This license is copied below, and is also
-          available with a FAQ at: ​http://scripts.sil.org/OFL ​ SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
-        </p>
-      </div>
+      <NavLink to="/about" className={'navlink-to-reset setting-contents'} style={{ color: 'blue' }}>
+        더 보기 및 사용한 오픈소스
+      </NavLink>
     </div>
   );
 }
