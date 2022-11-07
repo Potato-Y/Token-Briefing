@@ -163,7 +163,7 @@ router.post('/writer/delete', (req, res) => {
 
 // 최신 버전 정보 제공
 router.get('/client/data/release_version', (req, res) => {
-  res.json({ version: '1.0.0' });
+  res.json({ version: '1.0.1' });
 });
 
 // 윈도우 업데이트 헬퍼 프로그램 다운로드 제공
